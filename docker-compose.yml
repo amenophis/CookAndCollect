@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  adminer:
+    image: adminer:4.7
+    links:
+      - "postgres:db"
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DESIGN: haeckel
+
+  postgres:
+    image: postgres:13.0-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: cnc
+      POSTGRES_USER: cnc
+      POSTGRES_DB: cnc
+
+  yarn:
+    user: ${FIXUID:-1000}:${FIXGID:-1000}
+    build:
+      context: ./docker/yarn
+    volumes:
+      - .:/app
+
+  maildev:
+    image: maildev/maildev
+    ports:
+      - "8081:80"
+
+  php:
+    user: ${FIXUID:-1000}:${FIXGID:-1000}
+    build:
+      context: ./docker/php
+    links:
+      - "postgres:db"
+      - "maildev:smtp"
+    volumes:
+      - .:/app
+    environment:
+      COMPOSER_HOME: /tmp/composer
+    depends_on:
+      - postgres
+      - yarn
+      - maildev
+
+  nginx:
+    build:
+      context: ./docker/nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/app
+    depends_on:
+      - php

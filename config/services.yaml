@@ -1,0 +1,23 @@
+parameters:
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  _instanceof:
+    App\Domain\UseCase\UseCaseHandler:
+      tags: [ 'messenger.message_handler' ]
+
+  # Application
+  App\Application\:
+    resource: '../src/Application'
+
+  # Domain
+  App\Domain\:
+    resource: '../src/Domain'
+
+  # Infrastructure
+  App\Infrastructure\:
+    resource: '../src/Infrastructure'
+
