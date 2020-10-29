@@ -1,0 +1,27 @@
+name: CI
+on: [push]
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build and pull docker images
+        run: make build pull
+
+      - name: Install composer dependencies
+        run: make vendor
+
+      - name: PHP CS Fixer
+        run: make php-cs-fixer-check
+
+      - name: PHPStan
+        run: make phpstan
+
+      - name: PHPUnit - Unit
+        run: make unit-test
+
+      - name: PHPUnit - Func
+        run: make func-test
