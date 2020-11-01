@@ -32,6 +32,9 @@
     "doctrine/common": {
         "version": "3.1.x-dev"
     },
+    "doctrine/data-fixtures": {
+        "version": "1.4.x-dev"
+    },
     "doctrine/dbal": {
         "version": "2.12.x-dev"
     },
@@ -102,6 +105,23 @@
             ".php_cs.dist"
         ]
     },
+    "fzaninotto/faker": {
+        "version": "1.9-dev"
+    },
+    "hautelook/alice-bundle": {
+        "version": "2.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.1",
+            "ref": "71822522faf7ed2792d86b7f94ce73443358ccb9"
+        },
+        "files": [
+            "config/packages/dev/hautelook_alice.yaml",
+            "config/packages/test/hautelook_alice.yaml",
+            "fixtures/.gitignore"
+        ]
+    },
     "jangregor/phpstan-prophecy": {
         "version": "dev-master"
     },
@@ -119,6 +139,19 @@
     },
     "myclabs/deep-copy": {
         "version": "1.x-dev"
+    },
+    "nelmio/alice": {
+        "version": "3.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.2",
+            "ref": "0b9900ece737bec7752e4155c0164639dd9b0cb0"
+        },
+        "files": [
+            "config/packages/dev/nelmio_alice.yaml",
+            "config/packages/test/nelmio_alice.yaml"
+        ]
     },
     "nikic/php-parser": {
         "version": "v4.10.2"
@@ -508,9 +541,6 @@
     "symfony/polyfill-php70": {
         "version": "1.20-dev"
     },
-    "symfony/polyfill-php73": {
-        "version": "1.21-dev"
-    },
     "symfony/polyfill-php80": {
         "version": "1.21-dev"
     },
@@ -678,6 +708,15 @@
     },
     "symfony/yaml": {
         "version": "v5.2.0-beta3"
+    },
+    "theofidry/alice-data-fixtures": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "fe5a50faf580eb58f08ada2abe8afbd2d4941e05"
+        }
     },
     "theseer/tokenizer": {
         "version": "1.2.0"

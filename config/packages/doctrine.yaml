@@ -9,7 +9,7 @@ doctrine:
             App:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/src/Infrastructure/Doctrine/ORM/Mapping'
-                prefix: 'App\Domain\Data\Model'
-                alias: App
+                dir: '%kernel.project_dir%/src/User/Infrastructure/Doctrine/ORM/Mapping'
+                prefix: 'App\User\Domain\Data\Model'
+                alias: User
 

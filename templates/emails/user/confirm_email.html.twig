@@ -1,0 +1,2 @@
+Welcome {{ user.fullname }} !<br /><br />
+Click to active your account: <a href="{{  url('user_activate', {userId: user.id, activationToken: user.activationToken}) }}">Activate my account</a>
