@@ -1,0 +1,17 @@
+{% extends "app/base.html.twig" %}
+
+{% block body %}
+    <div class="px-3 py-10 flex justify-center">
+        <div class="w-full max-w-xs">
+            {{ form_start(form) }}
+
+            {{ form_row(form.plainPassword) }}
+
+            <div class="flex items-center justify-between">
+                {{ form_row(form.activate) }}
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,4 @@
+security:
+    encoders:
+      User\Infrastructure\Symfony\Security\User:
+        algorithm: 'plaintext'

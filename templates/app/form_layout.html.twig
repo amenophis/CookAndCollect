@@ -1,0 +1,48 @@
+{% use "form_div_layout.html.twig" %}
+
+{%- block form_start -%}
+    {%- set attr = attr|merge({ novalidate: 'novalidate', class: attr.class|default() ~ 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' }) -%}
+    {{ parent() }}
+{%- endblock form_start -%}
+
+{%- block form_row -%}
+    {%- set row_attr = row_attr|merge({ class: attr.class|default() ~ 'mb-4' }) -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_label(form) -}}
+        {{- form_widget(form, widget_attr) -}}
+        {{- form_errors(form) -}}
+        {{- form_help(form) -}}
+    </div>
+{%- endblock form_row -%}
+
+{%- block form_label -%}
+    {%- set label_attr = label_attr|merge({ class: attr.class|default() ~ 'block text-gray-700 text-sm font-bold mb-2' }) -%}
+    {{ parent() }}
+{%- endblock form_label -%}
+
+{%- block widget_attributes -%}
+    {% if type is not defined or type != 'hidden' %}
+        {%- set attr = attr|merge({ class: attr.class|default() ~ 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' }) -%}
+    {% endif %}
+    {%- if not valid %}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' border-red-500')|trim}) %}
+    {% endif -%}
+    {{ parent() }}
+{%- endblock widget_attributes -%}
+
+{%- block form_errors -%}
+    {%- set error_attr = { id: id~'_errors', class: 'form-error text-red-500 text-xs italic' } -%}
+
+    {%- if errors|length > 0 -%}
+        <p{% with {attr: error_attr} %}{{ block('attributes') }}{% endwith %}>{{ errors|map(e => "#{e.message}")|join('\n')|nl2br }}</p>
+    {%- endif -%}
+{%- endblock form_errors -%}
+
+{%- block button_widget -%}
+    {%- set attr = attr|merge({ 'class': 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' }) -%}
+    {{ parent() }}
+{%- endblock button_widget -%}

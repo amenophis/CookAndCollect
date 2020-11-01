@@ -17,7 +17,7 @@ endef
 
 define touch
 	$(shell mkdir -p $(shell dirname $(1)))
-	$(shell touch $(1))
+	$(shell touch -m $(1))
 endef
 
 CURRENT_USER := $(shell id -u)
@@ -50,12 +50,12 @@ pull: ## Pulling docker images
 	@$(call log_success,Done)
 
 .PHONY: php-shell
-php-shell: ## Enter in the PHP container
+php-shell: var/docker.build ## Enter in the PHP container
 	@$(call log,Entering inside php container ...)
 	@$(PHP_RUN) ash
 
 .PHONY: yarn-shell
-yarn-shell: ## Enter in the yarn container
+yarn-shell: var/docker.build ## Enter in the yarn container
 	@$(call log,Entering inside yarn container ...)
 	@$(YARN_RUN) ash
 
@@ -76,44 +76,49 @@ stop: ## Stop the docker stack
 	@$(call log_success,Done)
 
 .PHONY: clean
-clean: stop ## Clean the docker stack
+clean: ## Clean the docker stack
+	$(MAKE) stop
 	@$(call log,Cleaning the docker stack ...)
 	@$(DOCKER_COMPOSE) down
-	@rm -rf var/
+	@rm -rf var/ vendor/ node_modules/
 	@$(call log_success,Done)
 
-vendor: var/docker.build composer.json composer.lock ## Install composer dependencies
-	@$(call log,Installing vendor ...)
-	@mkdir -p vendor
+vendor: var/docker.build composer.lock composer.json  ## Install composer dependencies
+	@$(call log,Installing vendors ...)
 	@$(PHP_RUN) composer install
 	@$(call log_success,Done)
 
-node_modules: var/docker.build package.json yarn.lock ## Install yarn dependencies
+node_modules: var/docker.build yarn.lock package.json ## Install yarn dependencies
 	@$(call log,Installing node_modules ...)
-	@mkdir -p node_modules
-	@$(YARN_RUN) yarn install
+	@$(YARN_RUN) yarn install --immutable
 	@$(call log_success,Done)
 
-.PHONY: db
-db: var/docker.build
+db: var/db
+var/db: var/docker.build
 	@$(call log,Preparing db ...)
 	@$(PHP_RUN) waitforit -host=db -port=5432
 	@$(PHP_RUN) bin/console -v -n doctrine:database:drop --if-exists --force
 	@$(PHP_RUN) bin/console -v -n doctrine:database:create
 	@$(PHP_RUN) bin/console -v -n doctrine:migration:migrate --allow-no-migration
+	@$(call touch,var/db)
 	@$(call log_success,Done)
 
-.PHONY: db-test
-db-test: var/docker.build
+db-test: var/db.test
+var/db.test: var/docker.build
 	@$(call log,Preparing test db ...)
 	@$(PHP_RUN) waitforit -host=db -port=5432
 	@$(PHP_RUN) bin/console --env=test -v -n doctrine:database:drop --if-exists --force
 	@$(PHP_RUN) bin/console --env=test -v -n doctrine:database:create
 	@$(PHP_RUN) bin/console --env=test -v -n doctrine:migration:migrate --allow-no-migration
+	@$(call touch,var/db.test)
 	@$(call log_success,Done)
 
 .PHONY: qa
-qa: php-cs-fixer-check phpstan unit-test func-test ## Run QA targets
+qa: ## Run QA targets
+	@$(MAKE) php-cs-fixer-check
+	@$(MAKE) phpstan
+	@$(MAKE) unit-test
+	@$(MAKE) func-test
 
 .PHONY: php-cs-fixer-check
 php-cs-fixer-check: vendor ## Check code style
@@ -130,7 +135,8 @@ php-cs-fixer-fix: vendor ## Auto fix code style
 .PHONY: phpstan
 phpstan: vendor ## Analyze code with phpstan
 	@$(call log,Running ...)
-	@$(PHP_RUN) vendor/bin/phpstan analyze
+	@$(MAKE) cc
+	@$(PHP_RUN) vendor/bin/phpstan analyze --memory-limit 1G
 	@$(call log_success,Done)
 
 .PHONY: unit-test
@@ -144,4 +150,10 @@ func-test: var/docker.up ## Run PhpUnit func testsuite
 	@$(call log,Running ...)
 	$(MAKE) db-test
 	$(PHP_EXEC) vendor/bin/phpunit -v --testsuite func --testdox
+	@$(call log_success,Done)
+
+cc: ## Clean the Symfony cache
+	@$(call log,Running ...)
+	@rm -rf var/cache/*
+	$(PHP_RUN) bin/console ca:cl
 	@$(call log_success,Done)

@@ -6,18 +6,22 @@ services:
     autoconfigure: true
 
   _instanceof:
-    App\Domain\UseCase\UseCaseHandler:
+    App\Shared\Domain\UseCase\UseCaseHandler:
       tags: [ 'messenger.message_handler' ]
 
-  # Application
-  App\Application\:
-    resource: '../src/Application'
+  ## Shared
+  App\Shared\Application\:
+    resource: '../src/Shared/Application'
+  App\Shared\Domain\:
+    resource: '../src/Shared/Domain'
+  App\Shared\Infrastructure\:
+    resource: '../src/Shared/Infrastructure'
 
-  # Domain
-  App\Domain\:
-    resource: '../src/Domain'
-
-  # Infrastructure
-  App\Infrastructure\:
-    resource: '../src/Infrastructure'
+  ## User
+  App\User\Application\:
+    resource: '../src/User/Application'
+  App\User\Domain\:
+    resource: '../src/User/Domain'
+  App\User\Infrastructure\:
+    resource: '../src/User/Infrastructure'
 

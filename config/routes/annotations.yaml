@@ -1,5 +1,9 @@
-controllers:
-  resource: ../../src/Application/
+shared:
+  resource: ../../src/Shared/Application
+  type: annotation
+
+user:
+  resource: ../../src/User/Application
   type: annotation
 
 kernel:
