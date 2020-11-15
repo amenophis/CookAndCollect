@@ -92,4 +92,9 @@ class User
     {
         return $this->activatedOn;
     }
+
+    public function isActivated(): bool
+    {
+        return null !== $this->activatedOn;
+    }
 }

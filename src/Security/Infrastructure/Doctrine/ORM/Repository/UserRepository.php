@@ -56,13 +56,26 @@ class UserRepository extends ServiceEntityRepository implements Users
         return $user;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getByEmail(string $email): User
     {
-        /** @var ?User $user */
-        $user = $this->findOneBy(['email' => $email]);
+        $user = $this->findByEmail($email);
         if (null === $user) {
             throw UserNotFound::byEmail($email);
         }
+
+        return $user;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByEmail(string $email): ?User
+    {
+        /** @var User $user */
+        $user = $this->findOneBy(['email' => $email]);
 
         return $user;
     }

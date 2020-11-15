@@ -5,25 +5,69 @@ declare(strict_types=1);
 namespace Tests\App\Security\Func\Application\AVisitorWantsToCreateAnAccount;
 
 use App\Shared\Infrastructure\PHPUnit\BaseTestCase;
+use Tests\App\Security\FixturesConstants;
 
 class AVisitorWantsToCreateAnAccountTest extends BaseTestCase
 {
-    public function testSignupFarmSuccess(): void
+    public function testFirstSignupSuccess(): void
     {
         $client = $this->createClient();
         $client->request('GET', '/signup');
         $client->submitForm('Register', [
-            'form[firstname]' => 'Jeremy',
-            'form[lastname]'  => 'Leherpeur',
-            'form[email]'     => 'jeremy@cook-and-collect.com',
+            'form[firstname]' => 'Jean',
+            'form[lastname]'  => 'Dupond',
+            'form[email]'     => 'jd@hotmail.fr',
         ]);
 
         $this->assertResponseStatusCodeSame(302);
 
         $this->assertEmailCount(1);
         $email = $this->getMailerMessage(0);
-        $this->assertEmailHeaderSame($email, 'To', 'Jeremy Leherpeur <jeremy@cook-and-collect.com>');
-        $this->assertEmailTextBodyContains($email, 'Welcome Jeremy Leherpeur !');
+        $this->assertEmailHeaderSame($email, 'To', 'Jean Dupond <jd@hotmail.fr>');
+        $this->assertEmailTextBodyContains($email, 'Welcome Jean Dupond !');
+
+        $client->followRedirect();
+
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertSelectorTextContains('.flash', 'Registration successful, please check your inbox !');
+    }
+
+    public function testSignupWithNotActivatedUserSuccess(): void
+    {
+        $client = $this->createClient();
+        $client->request('GET', '/signup');
+        $client->submitForm('Register', [
+            'form[firstname]' => FixturesConstants::USER_NOT_ACTIVATED_BIS_FIRSTNAME,
+            'form[lastname]'  => FixturesConstants::USER_NOT_ACTIVATED_BIS_LASTNAME,
+            'form[email]'     => FixturesConstants::USER_NOT_ACTIVATED_BIS_EMAIL,
+        ]);
+
+        $this->assertResponseStatusCodeSame(302);
+
+        $this->assertEmailCount(1);
+        $email = $this->getMailerMessage(0);
+        $this->assertEmailHeaderSame($email, 'To', sprintf('%s %s <%s>', FixturesConstants::USER_NOT_ACTIVATED_BIS_FIRSTNAME, FixturesConstants::USER_NOT_ACTIVATED_BIS_LASTNAME, FixturesConstants::USER_NOT_ACTIVATED_BIS_EMAIL));
+        $this->assertEmailTextBodyContains($email, sprintf('Welcome %s %s !', FixturesConstants::USER_NOT_ACTIVATED_BIS_FIRSTNAME, FixturesConstants::USER_NOT_ACTIVATED_BIS_LASTNAME));
+
+        $client->followRedirect();
+
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertSelectorTextContains('.flash', 'Registration successful, please check your inbox !');
+    }
+
+    public function testSignupWithActivatedUserSuccess(): void
+    {
+        $client = $this->createClient();
+        $client->request('GET', '/signup');
+        $client->submitForm('Register', [
+            'form[firstname]' => FixturesConstants::USER_ACTIVATED_FIRSTNAME,
+            'form[lastname]'  => FixturesConstants::USER_ACTIVATED_LASTNAME,
+            'form[email]'     => FixturesConstants::USER_ACTIVATED_EMAIL,
+        ]);
+
+        $this->assertResponseStatusCodeSame(302);
+
+        $this->assertEmailCount(0);
 
         $client->followRedirect();
 
@@ -32,9 +76,9 @@ class AVisitorWantsToCreateAnAccountTest extends BaseTestCase
     }
 
     /**
-     * @dataProvider provideSignupFarmFormValidationErrors
+     * @dataProvider provideSignupFormValidationErrors
      */
-    public function testSignupFarmFormValidationErrors(string $fieldname, string $value, string $expectedError): void
+    public function testSignupFormValidationErrors(string $fieldname, string $value, string $expectedError): void
     {
         $formData = [
             'form[firstname]' => 'Jeremy',
@@ -55,7 +99,7 @@ class AVisitorWantsToCreateAnAccountTest extends BaseTestCase
     /**
      * @return iterable<array>
      */
-    public function provideSignupFarmFormValidationErrors(): iterable
+    public function provideSignupFormValidationErrors(): iterable
     {
         yield 'firstname should not be blank' => [
             'firstname',

@@ -3,19 +3,29 @@ App\Security\Domain\Data\Model\User:
     __factory:
       register:
         id: '<(Tests\App\Security\FixturesConstants::USER_NOT_ACTIVATED_ID)>'
-        firstname: '<firstname()>'
-        lastname: '<lastname()>'
-        email: '<email()>'
+        firstname: '<(Tests\App\Security\FixturesConstants::USER_NOT_ACTIVATED_FIRSTNAME)>'
+        lastname: '<(Tests\App\Security\FixturesConstants::USER_NOT_ACTIVATED_LASTNAME)>'
+        email: '<(Tests\App\Security\FixturesConstants::USER_NOT_ACTIVATED_EMAIL)>'
         registeredOn: '<(new \DateTimeImmutable())>'
         activationToken: '<(Tests\App\Security\FixturesConstants::USER_NOT_ACTIVATED_ACTIVATION_TOKEN)>'
+
+  user_not_activated_bis: # Add dama/doctrine-test-bundle to avoid duplicate data
+    __factory:
+      register:
+        id: '<(Tests\App\Security\FixturesConstants::USER_NOT_ACTIVATED_BIS_ID)>'
+        firstname: '<(Tests\App\Security\FixturesConstants::USER_NOT_ACTIVATED_BIS_FIRSTNAME)>'
+        lastname: '<(Tests\App\Security\FixturesConstants::USER_NOT_ACTIVATED_BIS_LASTNAME)>'
+        email: '<(Tests\App\Security\FixturesConstants::USER_NOT_ACTIVATED_BIS_EMAIL)>'
+        registeredOn: '<(new \DateTimeImmutable())>'
+        activationToken: '<(Tests\App\Security\FixturesConstants::USER_NOT_ACTIVATED_BIS_ACTIVATION_TOKEN)>'
 
   user_activated:
     __factory:
       register:
         id: '<(Tests\App\Security\FixturesConstants::USER_ACTIVATED_ID)>'
-        firstname: '<firstname()>'
-        lastname: '<lastname()>'
-        email: '<email()>'
+        firstname: '<(Tests\App\Security\FixturesConstants::USER_ACTIVATED_FIRSTNAME)>'
+        lastname: '<(Tests\App\Security\FixturesConstants::USER_ACTIVATED_LASTNAME)>'
+        email: '<(Tests\App\Security\FixturesConstants::USER_ACTIVATED_EMAIL)>'
         registeredOn: '<(new \DateTimeImmutable())>'
         activationToken: '<(Tests\App\Security\FixturesConstants::USER_ACTIVATED_ACTIVATION_TOKEN)>'
     __calls:
