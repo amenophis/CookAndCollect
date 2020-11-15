@@ -9,7 +9,7 @@
 
         <field name="firstname" type="string" />
         <field name="lastname" type="string" />
-        <field name="email" type="string" />
+        <field name="email" type="string" unique="true" />
         <field name="password" type="string" nullable="true" />
         <field name="registeredOn" type="datetime_immutable" />
         <field name="activationToken" type="string" nullable="true" />

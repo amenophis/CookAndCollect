@@ -35,17 +35,25 @@ class Handler implements UseCaseHandler
 
     public function __invoke(Input $input): void
     {
-        $user = User::register(
-            $this->idGenerator->getNew(),
-            $input->getUserFirstname(),
-            $input->getUserLastname(),
-            $input->getUserEmail(),
-            $this->clock->now(),
-            $this->randomGenerator->generate(64)
-        );
-        $this->users->add($user);
+        $user = $this->users->findByEmail($input->getUserEmail());
 
-        $this->mailer->send(new UserRegisterEmail($user));
+        if (null === $user) {
+            $user = User::register(
+                $this->idGenerator->getNew(),
+                $input->getUserFirstname(),
+                $input->getUserLastname(),
+                $input->getUserEmail(),
+                $this->clock->now(),
+                $this->randomGenerator->generate(64)
+            );
+
+            $this->users->add($user);
+        }
+
+        if (!$user->isActivated()) {
+            $this->mailer->send(new UserRegisterEmail($user));
+        }
+
         $this->notifier->notify(Notifier::TYPE_SUCCESS, 'Registration successful, please check your inbox !');
     }
 }
