@@ -76,8 +76,8 @@
     "autoload-dev": {
         "psr-4": {
             "Fixtures\\": "fixtures",
-            "Tests\\App\\Shared\\": "tests/Shared",
-            "Tests\\App\\User\\": "tests/User"
+            "Tests\\App\\Security\\": "tests/Security",
+            "Tests\\App\\Shared\\": "tests/Shared"
         }
     },
     "replace": {

@@ -1,0 +1,27 @@
+{% extends "app/base.html.twig" %}
+
+{% block body %}
+    <section class="max-w-6xl mx-auto">
+        <h1 class="h1 max-w-3xl mx-auto text-center pb-12">Create an account</h1>
+
+        <div class="max-w-sm mx-auto">
+            {{ form_start(form) }}
+
+                {{ form_row(form.firstname) }}
+                {{ form_row(form.lastname) }}
+                {{ form_row(form.email) }}
+
+                {{ form_row(form.register) }}
+
+            {{ form_end(form) }}
+
+            <div class="text-sm text-gray-500 text-center mt-3">
+                En créant un compte, vous acceptez nos <a class="underline" href="#0" style="outline: none;">conditions générales</a> et notre <a class="underline" href="#0" style="outline: none;">politique de confidentialité</a>.
+            </div>
+
+            <div class="text-gray-600 text-center mt-6">
+                Déjà inscrit sur {{ project_name }} ? <a href="#" class="text-blue-600 hover:underline transition duration-150 ease-in-out">Me connecter</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

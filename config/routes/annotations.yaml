@@ -3,7 +3,7 @@ shared:
   type: annotation
 
 user:
-  resource: ../../src/User/Application
+  resource: ../../src/Security/Application
   type: annotation
 
 kernel:

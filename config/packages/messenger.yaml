@@ -1,7 +1,7 @@
 framework:
   messenger:
     buses:
-      command_bus:
+      bus.use_case:
         middleware:
           - doctrine_transaction
 

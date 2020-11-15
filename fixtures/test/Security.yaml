@@ -1,0 +1,26 @@
+App\Security\Domain\Data\Model\User:
+  user_not_activated:
+    __factory:
+      register:
+        id: '<(Tests\App\Security\FixturesConstants::USER_NOT_ACTIVATED_ID)>'
+        firstname: '<firstname()>'
+        lastname: '<lastname()>'
+        email: '<email()>'
+        registeredOn: '<(new \DateTimeImmutable())>'
+        activationToken: '<(Tests\App\Security\FixturesConstants::USER_NOT_ACTIVATED_ACTIVATION_TOKEN)>'
+
+  user_activated:
+    __factory:
+      register:
+        id: '<(Tests\App\Security\FixturesConstants::USER_ACTIVATED_ID)>'
+        firstname: '<firstname()>'
+        lastname: '<lastname()>'
+        email: '<email()>'
+        registeredOn: '<(new \DateTimeImmutable())>'
+        activationToken: '<(Tests\App\Security\FixturesConstants::USER_ACTIVATED_ACTIVATION_TOKEN)>'
+    __calls:
+      - activate:
+          activationToken: '<(Tests\App\Security\FixturesConstants::USER_ACTIVATED_ACTIVATION_TOKEN)>'
+          activatedOn: '<(new \DateTimeImmutable())>'
+          encodedPassword: 'test'
+
