@@ -1,0 +1,18 @@
+{% extends "app/base.html.twig" %}
+
+{% block body %}
+    <section class="max-w-6xl mx-auto">
+        <h1 class="h1 max-w-3xl mx-auto text-center pb-12">Activate my account</h1>
+
+        <div class="max-w-sm mx-auto">
+            {{ form_start(form) }}
+
+            {{ form_row(form.plainPassword.first) }}
+            {{ form_row(form.plainPassword.second) }}
+
+            {{ form_row(form.activate) }}
+
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}

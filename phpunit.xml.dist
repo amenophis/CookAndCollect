@@ -17,12 +17,12 @@
 
     <testsuites>
         <testsuite name="unit">
+            <directory>tests/Security/Unit</directory>
             <directory>tests/Shared/Unit</directory>
-            <directory>tests/User/Unit</directory>
         </testsuite>
         <testsuite name="func">
+            <directory>tests/Security/Func</directory>
             <directory>tests/Shared/Func</directory>
-            <directory>tests/User/Func</directory>
         </testsuite>
     </testsuites>
 

@@ -1,9 +1,14 @@
 parameters:
+  project_name: 'Cook''N Collect'
+  no_reply_address: 'no-reply@cook-and-collect.fr'
 
 services:
   _defaults:
     autowire: true
     autoconfigure: true
+    bind:
+      string $subjectPrefix: '%project_name%'
+      string $noReplyAddress: '%no_reply_address%'
 
   _instanceof:
     App\Shared\Domain\UseCase\UseCaseHandler:
@@ -17,11 +22,11 @@ services:
   App\Shared\Infrastructure\:
     resource: '../src/Shared/Infrastructure'
 
-  ## User
-  App\User\Application\:
-    resource: '../src/User/Application'
-  App\User\Domain\:
-    resource: '../src/User/Domain'
-  App\User\Infrastructure\:
-    resource: '../src/User/Infrastructure'
+  ## Security
+  App\Security\Application\:
+    resource: '../src/Security/Application'
+  App\Security\Domain\:
+    resource: '../src/Security/Domain'
+  App\Security\Infrastructure\:
+    resource: '../src/Security/Infrastructure'
 

@@ -1,32 +1,35 @@
 {% use "form_div_layout.html.twig" %}
 
-{%- block form_start -%}
-    {%- set attr = attr|merge({ novalidate: 'novalidate', class: attr.class|default() ~ 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' }) -%}
-    {{ parent() }}
-{%- endblock form_start -%}
-
 {%- block form_row -%}
-    {%- set row_attr = row_attr|merge({ class: attr.class|default() ~ 'mb-4' }) -%}
+    {%- set row_attr = row_attr|merge({ class: attr.class|default() ~ 'w-full px-3' }) -%}
     {%- set widget_attr = {} -%}
     {%- if help is not empty -%}
         {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
     {%- endif -%}
-    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
-        {{- form_label(form) -}}
-        {{- form_widget(form, widget_attr) -}}
-        {{- form_errors(form) -}}
-        {{- form_help(form) -}}
+    <div{% with {attr: {class: 'flex flex-wrap -mx-3 mb-4 test'}} %}{{ block('attributes') }}{% endwith %}>
+        <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+            {{- form_label(form) -}}
+            {{- form_widget(form, widget_attr) -}}
+            {{- form_errors(form) -}}
+            {{- form_help(form) -}}
+        </div>
     </div>
 {%- endblock form_row -%}
 
 {%- block form_label -%}
-    {%- set label_attr = label_attr|merge({ class: attr.class|default() ~ 'block text-gray-700 text-sm font-bold mb-2' }) -%}
+    {%- set label_attr = label_attr|merge({ class: label_attr.class|default() ~ 'block text-gray-800 text-sm font-medium mb-1' }) -%}
+
+    {% if required %}
+        {%- set label_html = true -%}
+        {%- set label = label|default(name|humanize) ~ ' <span class="text-red-600">*</span>' %}
+    {% endif %}
+
     {{ parent() }}
 {%- endblock form_label -%}
 
 {%- block widget_attributes -%}
     {% if type is not defined or type != 'hidden' %}
-        {%- set attr = attr|merge({ class: attr.class|default() ~ 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' }) -%}
+        {%- set attr = attr|merge({ class: attr.class|default() ~ 'form-input w-full text-gray-800' }) -%}
     {% endif %}
     {%- if not valid %}
         {% set attr = attr|merge({class: (attr.class|default('') ~ ' border-red-500')|trim}) %}
@@ -42,7 +45,14 @@
     {%- endif -%}
 {%- endblock form_errors -%}
 
-{%- block button_widget -%}
-    {%- set attr = attr|merge({ 'class': 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' }) -%}
+{%- block button_row -%}
+    {%- set row_attr = row_attr|merge({ class: row_attr.class|default() ~ 'w-full px-3' }) -%}
+    <div class="flex flex-wrap -mx-3 mt-6">
+        {{ parent() }}
+    </div>
+{%- endblock button_row -%}
+
+{%- block button_attributes -%}
+    {%- set attr = attr|merge({ class: attr.class|default() ~ 'btn text-white bg-blue-600 hover:bg-blue-700 w-full' }) -%}
     {{ parent() }}
-{%- endblock button_widget -%}
+{%- endblock button_attributes -%}
