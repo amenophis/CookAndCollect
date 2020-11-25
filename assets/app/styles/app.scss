@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=fallback');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 // Typography
 .h1 {
     @apply text-4xl font-extrabold leading-tight tracking-tighter;
@@ -13,16 +19,6 @@
 
 .h4 {
     @apply text-2xl font-bold leading-snug tracking-tight;
-}
-
-@screen md {
-    .h1 {
-        @apply text-5xl;
-    }
-
-    .h2 {
-        @apply text-4xl;
-    }
 }
 
 // Buttons

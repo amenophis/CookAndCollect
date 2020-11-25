@@ -37,7 +37,7 @@ class Handler implements UseCaseHandler
             $user->activate(
                 $input->getActivationToken(),
                 $this->clock->now(),
-                $this->passwordEncoder->encode($user, $input->getPlainPassword())
+                $this->passwordEncoder->encode($input->getPlainPassword())
             );
         } catch (UserNotFound | InvalidUserActivationToken $e) {
         }

@@ -12,6 +12,7 @@ class User implements UserInterface, EquatableInterface
 {
     private string $email;
     private ?string $password;
+    private bool $admin;
 
     private function __construct()
     {
@@ -27,6 +28,7 @@ class User implements UserInterface, EquatableInterface
         $self           = new self();
         $self->email    = $user->getEmail();
         $self->password = $user->getPassword();
+        $self->admin    = $user->isAdmin();
 
         return $self;
     }
@@ -36,6 +38,10 @@ class User implements UserInterface, EquatableInterface
      */
     public function getRoles()
     {
+        if (true === $this->admin) {
+            return ['ROLE_ADMIN'];
+        }
+
         return ['ROLE_USER'];
     }
 

@@ -21,7 +21,7 @@ class Controller extends AbstractController
     }
 
     /**
-     * @Route("/signup", methods={"GET", "POST"}, name="security_account_create")
+     * @Route("/signup", methods={"GET", "POST"}, name="app_security_account_create")
      */
     public function __invoke(Request $request): Response
     {
@@ -35,7 +35,7 @@ class Controller extends AbstractController
             $input = new AVisitorWantsToSignup\Input($formData->firstname, $formData->lastname, $formData->email);
             $this->useCaseBus->dispatch($input);
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('app_homepage');
         }
 
         return $this->render('app/security/account_create.html.twig', [

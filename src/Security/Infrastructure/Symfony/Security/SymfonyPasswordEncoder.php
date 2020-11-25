@@ -4,22 +4,20 @@ declare(strict_types=1);
 
 namespace App\Security\Infrastructure\Symfony\Security;
 
-use App\Security\Domain\Data\Model\User;
 use App\Security\Domain\PasswordEncoder;
-use App\Security\Infrastructure\Symfony\Security\User as InfraUser;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class SymfonyPasswordEncoder implements PasswordEncoder
 {
-    private UserPasswordEncoderInterface $userPasswordEncoder;
+    private EncoderFactoryInterface $encoderFactory;
 
-    public function __construct(UserPasswordEncoderInterface $userPasswordEncoder)
+    public function __construct(EncoderFactoryInterface $encoderFactory)
     {
-        $this->userPasswordEncoder = $userPasswordEncoder;
+        $this->encoderFactory = $encoderFactory;
     }
 
-    public function encode(User $user, string $password): string
+    public function encode(string $password): string
     {
-        return $this->userPasswordEncoder->encodePassword(InfraUser::createFromUser($user), $password);
+        return $this->encoderFactory->getEncoder(User::class)->encodePassword($password, null);
     }
 }

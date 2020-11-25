@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class Controller extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"}, name="homepage")
+     * @Route("/", methods={"GET"}, name="app_homepage")
      */
     public function __invoke(Request $request): Response
     {

@@ -25,6 +25,7 @@ services:
       context: ./docker/yarn
     volumes:
       - .:/app
+      - ~/.cache/yarn:/home/node/.cache/yarn
 
   maildev:
     image: maildev/maildev
@@ -40,6 +41,7 @@ services:
       - "maildev:smtp"
     volumes:
       - .:/app
+      - ~/.cache/composer:/tmp/composer
     environment:
       COMPOSER_HOME: /tmp/composer
     depends_on:

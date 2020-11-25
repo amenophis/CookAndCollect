@@ -23,9 +23,9 @@ class Handler implements UseCaseHandler
     private Mailer $mailer;
     private Notifier $notifier;
 
-    public function __construct(Users $user, IdGenerator $idGenerator, Clock $clock, RandomGenerator $randomGenerator, Mailer $mailer, Notifier $notifier)
+    public function __construct(Users $users, IdGenerator $idGenerator, Clock $clock, RandomGenerator $randomGenerator, Mailer $mailer, Notifier $notifier)
     {
-        $this->users           = $user;
+        $this->users           = $users;
         $this->idGenerator     = $idGenerator;
         $this->clock           = $clock;
         $this->randomGenerator = $randomGenerator;

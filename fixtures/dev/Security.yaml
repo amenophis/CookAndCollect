@@ -1,0 +1,17 @@
+App\Security\Domain\Data\Model\User:
+  jeremy:
+    __factory:
+      register:
+        id: 'f72147ef-4e84-4ee0-aacf-d05e8568e78e'
+        firstname: 'Jérémy'
+        lastname: 'LEHERPEUR'
+        email: 'jeremy@cook-and-collect.fr'
+        registeredOn: '<(new \DateTimeImmutable())>'
+        activationToken: 'a97d9ab971954e0db216dcb61dc284bec91be8e49ed3476eacee4643be6c6aa8'
+    __calls:
+      - activate:
+          activationToken: 'a97d9ab971954e0db216dcb61dc284bec91be8e49ed3476eacee4643be6c6aa8'
+          activatedOn: '<(new \DateTimeImmutable())>'
+          encodedPassword: '<securityPassword("testtest")>'
+      - grantAdministratorRole: []
+

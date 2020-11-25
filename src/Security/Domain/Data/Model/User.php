@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Security\Domain\Data\Model;
 
 use App\Security\Domain\Data\Model\Exception\InvalidUserActivationToken;
+use App\Security\Domain\Data\Model\Exception\UserAlreadyHasAdministratorRole;
+use App\Security\Domain\Data\Model\Exception\UserDoesNotHaveAdministratorRole;
 
 class User
 {
@@ -16,6 +18,7 @@ class User
     private \DateTimeImmutable $registeredOn;
     private ?string $activationToken         = null;
     private ?\DateTimeImmutable $activatedOn = null;
+    private bool $admin                      = false;
 
     private function __construct()
     {
@@ -46,6 +49,30 @@ class User
         $this->activationToken = null;
         $this->activatedOn     = $activatedOn;
         $this->password        = $encodedPassword;
+    }
+
+    /**
+     * @throws UserAlreadyHasAdministratorRole
+     */
+    public function grantAdministratorRole(): void
+    {
+        if (true === $this->admin) {
+            throw new UserAlreadyHasAdministratorRole($this);
+        }
+
+        $this->admin = true;
+    }
+
+    /**
+     * @throws UserDoesNotHaveAdministratorRole
+     */
+    public function revokeAdministratorRole(): void
+    {
+        if (false === $this->admin) {
+            throw new UserDoesNotHaveAdministratorRole($this);
+        }
+
+        $this->admin = false;
     }
 
     public function getId(): string
@@ -96,5 +123,10 @@ class User
     public function isActivated(): bool
     {
         return null !== $this->activatedOn;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->admin;
     }
 }

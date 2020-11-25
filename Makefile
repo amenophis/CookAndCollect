@@ -80,7 +80,7 @@ clean: ## Clean the docker stack
 	$(MAKE) stop
 	@$(call log,Cleaning the docker stack ...)
 	@$(DOCKER_COMPOSE) down
-	@rm -rf var/ vendor/ node_modules/
+	@rm -rf var/ vendor/ node_modules/ public/build/ assets/**/node_modules
 	@$(call log_success,Done)
 
 vendor: var/docker.build composer.lock composer.json  ## Install composer dependencies
@@ -88,9 +88,15 @@ vendor: var/docker.build composer.lock composer.json  ## Install composer depend
 	@$(PHP_RUN) composer install
 	@$(call log_success,Done)
 
-node_modules: var/docker.build yarn.lock package.json ## Install yarn dependencies
+node_modules: var/docker.build yarn.lock package.json assets/admin/package.json assets/app/package.json ## Install yarn dependencies
 	@$(call log,Installing node_modules ...)
 	@$(YARN_RUN) yarn install --immutable
+	@$(call log_success,Done)
+
+assets-build: public/build ## Build assets
+public/build: node_modules
+	@$(call log,Building assets ...)
+	@$(YARN_RUN) yarn dev
 	@$(call log_success,Done)
 
 db: var/db

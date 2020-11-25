@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class Controller extends AbstractController
 {
     /**
-     * @Route("/logout", methods={"GET", "POST"}, name="security_user_logout")
+     * @Route("/logout", methods={"GET", "POST"}, name="app_security_user_logout")
      */
     public function __invoke(): void
     {
