@@ -20,7 +20,7 @@ class Controller extends AbstractController
     }
 
     /**
-     * @Route("/login", methods={"GET", "POST"}, name="security_user_login")
+     * @Route("/login", methods={"GET", "POST"}, name="app_security_user_login")
      */
     public function __invoke(AuthenticationUtils $authenticationUtils): Response
     {

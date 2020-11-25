@@ -1,0 +1,9 @@
+security:
+  resource: ../../src/Security/Admin
+  type: annotation
+  prefix: /admin
+
+shared:
+  resource: ../../src/Shared/Admin
+  type: annotation
+  prefix: /admin

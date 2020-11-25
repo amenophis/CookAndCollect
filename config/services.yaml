@@ -15,6 +15,8 @@ services:
       tags: [ 'messenger.message_handler' ]
 
   ## Shared
+  App\Shared\Admin\:
+    resource: '../src/Shared/Admin'
   App\Shared\Application\:
     resource: '../src/Shared/Application'
   App\Shared\Domain\:
@@ -23,8 +25,12 @@ services:
     resource: '../src/Shared/Infrastructure'
 
   ## Security
+  App\Security\Admin\:
+    resource: '../src/Security/Admin'
   App\Security\Application\:
     resource: '../src/Security/Application'
+  App\Security\Cli\:
+    resource: '../src/Security/Cli'
   App\Security\Domain\:
     resource: '../src/Security/Domain'
   App\Security\Infrastructure\:

@@ -21,7 +21,7 @@ class Controller extends AbstractController
     }
 
     /**
-     * @Route("/user/{userId}/activate/{activationToken}", methods={"GET", "POST"}, name="user_activate")
+     * @Route("/user/{userId}/activate/{activationToken}", methods={"GET", "POST"}, name="app_user_activate")
      */
     public function __invoke(Request $request, string $userId, string $activationToken): Response
     {
@@ -35,7 +35,7 @@ class Controller extends AbstractController
             $input = new AUserWantsToActivateHisAccount\Input($userId, $activationToken, $formData->plainPassword);
             $this->useCaseBus->dispatch($input);
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('app_homepage');
         }
 
         return $this->render('app/security/account_activate.html.twig', [

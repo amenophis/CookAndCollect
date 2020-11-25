@@ -20,6 +20,9 @@ jobs:
       - name: PHPStan
         run: make phpstan
 
+      - name: Build assets
+        run: make assets-build
+
       - name: PHPUnit - Unit
         run: make unit-test
 

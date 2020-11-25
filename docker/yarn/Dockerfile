@@ -13,4 +13,4 @@ RUN USER=node && \
 
 WORKDIR /app
 ENTRYPOINT ["fixuid", "-q"]
-CMD ["yarn", "watch"]
+CMD ["yarn", "encore", "dev", "--watch", "--hot"]

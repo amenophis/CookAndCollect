@@ -1,0 +1,7 @@
+security:
+  resource: ../../src/Security/Application
+  type: annotation
+
+shared:
+  resource: ../../src/Shared/Application
+  type: annotation

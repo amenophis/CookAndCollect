@@ -12,7 +12,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class Controller extends AbstractController
 {
     /**
-     * @Route("/profile", methods={"GET"}, name="security_user_profile")
+     * @Route("/profile", methods={"GET"}, name="app_security_user_profile")
      */
     public function __invoke(AuthenticationUtils $authenticationUtils): Response
     {
