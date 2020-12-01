@@ -93,6 +93,9 @@
     "egulias/email-validator": {
         "version": "2.1.x-dev"
     },
+    "fakerphp/faker": {
+        "version": "v1.12.0"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "2.2",
         "recipe": {
