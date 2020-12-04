@@ -23,7 +23,7 @@ class AUserWantsToActivateHisAccountTest extends BaseTestCase
         $this->assertResponseStatusCodeSame(302);
         $client->followRedirect();
         $this->assertResponseStatusCodeSame(200);
-        $this->assertSelectorTextContains('.flash', 'Your user is activated !');
+        $this->assertSelectorTextContains('[data-test="flash-success"]', 'Your user is activated !');
     }
 
     /**

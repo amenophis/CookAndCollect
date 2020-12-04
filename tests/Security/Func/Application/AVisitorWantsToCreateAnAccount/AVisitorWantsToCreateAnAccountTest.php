@@ -29,7 +29,7 @@ class AVisitorWantsToCreateAnAccountTest extends BaseTestCase
         $client->followRedirect();
 
         $this->assertResponseStatusCodeSame(200);
-        $this->assertSelectorTextContains('.flash', 'Registration successful, please check your inbox !');
+        $this->assertSelectorTextContains('[data-test="flash-success"]', 'Registration successful, please check your inbox !');
     }
 
     public function testSignupWithNotActivatedUserSuccess(): void
@@ -52,7 +52,7 @@ class AVisitorWantsToCreateAnAccountTest extends BaseTestCase
         $client->followRedirect();
 
         $this->assertResponseStatusCodeSame(200);
-        $this->assertSelectorTextContains('.flash', 'Registration successful, please check your inbox !');
+        $this->assertSelectorTextContains('[data-test="flash-success"]', 'Registration successful, please check your inbox !');
     }
 
     public function testSignupWithActivatedUserSuccess(): void
@@ -72,7 +72,7 @@ class AVisitorWantsToCreateAnAccountTest extends BaseTestCase
         $client->followRedirect();
 
         $this->assertResponseStatusCodeSame(200);
-        $this->assertSelectorTextContains('.flash', 'Registration successful, please check your inbox !');
+        $this->assertSelectorTextContains('[data-test="flash-success"]', 'Registration successful, please check your inbox !');
     }
 
     /**

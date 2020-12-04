@@ -17,12 +17,11 @@ security:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     main:
-      form_login:
-        login_path: app_security_user_login
-        check_path: app_security_user_login
-        enable_csrf: true
+      custom_authenticators:
+          - App\Security\Infrastructure\Symfony\Security\FormLoginAuthenticator
       logout:
         path: app_security_user_logout
+
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
