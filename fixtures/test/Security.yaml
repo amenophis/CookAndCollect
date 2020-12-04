@@ -32,5 +32,5 @@ App\Security\Domain\Data\Model\User:
       - activate:
           activationToken: '<(Tests\App\Security\FixturesConstants::USER_ACTIVATED_ACTIVATION_TOKEN)>'
           activatedOn: '<(new \DateTimeImmutable())>'
-          encodedPassword: 'test'
+          encodedPassword: '<(Tests\App\Security\FixturesConstants::USER_ACTIVATED_PASSWORD)>'
 

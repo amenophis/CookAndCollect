@@ -74,6 +74,5 @@ class User implements UserInterface, EquatableInterface
      */
     public function eraseCredentials(): void
     {
-        unset($this->password);
     }
 }
