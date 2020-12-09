@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Security\Domain\UseCase\GrantUserAdministratorRole;
 
-use App\Security\Domain\Data\Model\Exception\UserDoesNotHaveAdministratorRole;
-use App\Security\Domain\Data\Model\Exception\UserNotFound;
+use App\Security\Domain\Data\Exception\UserDoesNotHaveAdministratorRole;
+use App\Security\Domain\Data\Exception\UserNotFound;
 use App\Security\Domain\Data\Repository\Users;
 use App\Shared\Domain\UseCase\UseCaseHandler;
 

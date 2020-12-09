@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Security\Infrastructure\Doctrine\ORM\Repository;
 
-use App\Security\Domain\Data\Model\Exception\UserNotFound;
+use App\Security\Domain\Data\Exception\UnableToAddUser;
+use App\Security\Domain\Data\Exception\UserNotFound;
 use App\Security\Domain\Data\Model\User;
 use App\Security\Domain\Data\Repository\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\ORMInvalidArgumentException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -25,7 +28,11 @@ class UserRepository extends ServiceEntityRepository implements Users
      */
     public function add(User $user): void
     {
-        $this->_em->persist($user);
+        try {
+            $this->_em->persist($user);
+        } catch (ORMInvalidArgumentException | ORMException $e) {
+            throw new UnableToAddUser($e);
+        }
     }
 
     /**

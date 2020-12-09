@@ -150,14 +150,14 @@ phpstan: vendor ## Analyze code with phpstan
 .PHONY: unit-test
 unit-test: vendor ## Run PhpUnit unit testsuite
 	@$(call log,Running ...)
-	@$(PHP_RUN) vendor/bin/phpunit -v --testsuite unit --testdox
+	@$(PHP_RUN) vendor/bin/phpunit -v --testsuite unit --testdox --coverage-html var/coverage
 	@$(call log_success,Done)
 
 .PHONY: func-test
 func-test: var/docker.up ## Run PhpUnit func testsuite
 	@$(call log,Running ...)
 	$(MAKE) db-test
-	$(PHP_EXEC) vendor/bin/phpunit -v --testsuite func --testdox
+	$(PHP_EXEC) vendor/bin/phpunit -v --coverage-html var/coverage --testsuite func --testdox
 	@$(call log_success,Done)
 
 cc: ## Clean the Symfony cache

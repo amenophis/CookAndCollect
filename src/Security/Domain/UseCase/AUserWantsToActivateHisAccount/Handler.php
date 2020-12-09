@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Security\Domain\UseCase\AUserWantsToActivateHisAccount;
 
-use App\Security\Domain\Data\Model\Exception\InvalidUserActivationToken;
-use App\Security\Domain\Data\Model\Exception\UserNotFound;
+use App\Security\Domain\Data\Exception\InvalidUserActivationToken;
+use App\Security\Domain\Data\Exception\UserNotFound;
 use App\Security\Domain\Data\Repository\Users;
 use App\Security\Domain\PasswordEncoder;
 use App\Shared\Domain\Clock;
@@ -40,6 +40,7 @@ class Handler implements UseCaseHandler
                 $this->passwordEncoder->encode($input->getPlainPassword())
             );
         } catch (UserNotFound | InvalidUserActivationToken $e) {
+            // On ne fait rien ici, afin de ne pas indiquer qu'un utilisateur n'existe pas ou qu'un token est invalide
         }
 
         $this->notifier->notify(Notifier::TYPE_SUCCESS, 'Your user is activated !');

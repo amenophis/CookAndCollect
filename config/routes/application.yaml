@@ -1,3 +1,7 @@
+restaurant:
+  resource: ../../src/Restaurant/Application
+  type: annotation
+
 security:
   resource: ../../src/Security/Application
   type: annotation

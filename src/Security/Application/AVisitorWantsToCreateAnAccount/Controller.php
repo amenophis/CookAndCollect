@@ -25,13 +25,10 @@ class Controller extends AbstractController
      */
     public function __invoke(Request $request): Response
     {
-        $form = $this->createForm(Form::class, new FormDto());
+        $form = $this->createForm(Form::class, $formData = new FormDto());
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var FormDto $formData */
-            $formData = $form->getData();
-
             $input = new AVisitorWantsToSignup\Input($formData->firstname, $formData->lastname, $formData->email);
             $this->useCaseBus->dispatch($input);
 

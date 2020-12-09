@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Security\Domain\Data\Model\Exception;
+namespace App\Security\Domain\Data\Exception;
 
 use App\Security\Domain\Data\Model\User;
 

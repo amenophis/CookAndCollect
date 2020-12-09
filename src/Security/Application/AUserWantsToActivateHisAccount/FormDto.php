@@ -12,5 +12,5 @@ class FormDto
      * @Assert\NotBlank
      * @Assert\Length(min=8, max=64)
      */
-    public string $plainPassword;
+    public ?string $plainPassword = null;
 }
