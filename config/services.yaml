@@ -9,6 +9,8 @@ services:
     bind:
       string $subjectPrefix: '%project_name%'
       string $noReplyAddress: '%no_reply_address%'
+      string $projectDir: '%kernel.project_dir%'
+      Symfony\Bundle\MakerBundle\Generator $generator: '@maker.generator'
 
   _instanceof:
     App\Shared\Domain\UseCase\UseCaseHandler:
