@@ -12,18 +12,18 @@ class FormDto
      * @Assert\NotBlank
      * @Assert\Length(min=2, max=64)
      */
-    public string $firstname;
+    public ?string $firstname = null;
 
     /**
      * @Assert\NotBlank
      * @Assert\Length(min=2, max=64)
      */
-    public string $lastname;
+    public ?string $lastname = null;
 
     /**
      * @Assert\NotBlank
      * @Assert\Email
      * @Assert\Length(max=255)
      */
-    public string $email;
+    public ?string $email = null;
 }

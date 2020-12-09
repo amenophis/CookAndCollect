@@ -183,6 +183,9 @@
     "phpspec/prophecy": {
         "version": "1.12.1"
     },
+    "phpspec/prophecy-phpunit": {
+        "version": "v2.0.1"
+    },
     "phpstan/extension-installer": {
         "version": "dev-master"
     },

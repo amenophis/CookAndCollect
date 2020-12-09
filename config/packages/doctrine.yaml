@@ -6,6 +6,12 @@ doctrine:
     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
     auto_mapping: true
     mappings:
+      Restaurant:
+        is_bundle: false
+        type: xml
+        dir: '%kernel.project_dir%/src/Restaurant/Infrastructure/Doctrine/ORM/Mapping'
+        prefix: 'App\Restaurant\Domain\Data\Model'
+        alias: Restaurant
       Security:
         is_bundle: false
         type: xml

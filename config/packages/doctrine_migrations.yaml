@@ -1,4 +1,5 @@
 doctrine_migrations:
   migrations_paths:
+    'App\Restaurant\Infrastructure\Doctrine\Migrations': '%kernel.project_dir%/src/Restaurant/Infrastructure/Doctrine/Migrations'
     'App\Shared\Infrastructure\Doctrine\Migrations': '%kernel.project_dir%/src/Shared/Infrastructure/Doctrine/Migrations'
     'App\Security\Infrastructure\Doctrine\Migrations': '%kernel.project_dir%/src/Security/Infrastructure/Doctrine/Migrations'

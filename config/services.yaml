@@ -14,6 +14,16 @@ services:
     App\Shared\Domain\UseCase\UseCaseHandler:
       tags: [ 'messenger.message_handler' ]
 
+  ## Restaurant
+#  App\Restaurant\Admin\:
+#    resource: '../src/Shared/Restaurant'
+  App\Restaurant\Application\:
+    resource: '../src/Restaurant/Application'
+  App\Restaurant\Domain\:
+    resource: '../src/Restaurant/Domain'
+  App\Restaurant\Infrastructure\:
+    resource: '../src/Restaurant/Infrastructure'
+
   ## Shared
   App\Shared\Admin\:
     resource: '../src/Shared/Admin'

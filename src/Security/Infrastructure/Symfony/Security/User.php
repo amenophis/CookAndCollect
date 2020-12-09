@@ -10,12 +10,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface, EquatableInterface
 {
+    private string $id;
     private string $email;
     private ?string $password;
     private bool $admin;
 
-    private function __construct()
+    public function __construct(string $id, string $email, string $password, bool $isAdmin)
     {
+        $this->id       = $id;
+        $this->email    = $email;
+        $this->password = $password;
+        $this->admin    = $isAdmin;
     }
 
     public function isEqualTo(UserInterface $user)
@@ -25,12 +30,17 @@ class User implements UserInterface, EquatableInterface
 
     public static function createFromUser(DomainUser $user): self
     {
-        $self           = new self();
-        $self->email    = $user->getEmail();
-        $self->password = $user->getPassword();
-        $self->admin    = $user->isAdmin();
+        return new self(
+            $user->getId(),
+            $user->getEmail(),
+            $user->getPassword(),
+            $user->isAdmin()
+        );
+    }
 
-        return $self;
+    public function getId(): string
+    {
+        return $this->id;
     }
 
     /**

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Security\Domain\Data\Model;
 
-use App\Security\Domain\Data\Model\Exception\InvalidUserActivationToken;
-use App\Security\Domain\Data\Model\Exception\UserAlreadyHasAdministratorRole;
-use App\Security\Domain\Data\Model\Exception\UserDoesNotHaveAdministratorRole;
+use App\Security\Domain\Data\Exception\InvalidUserActivationToken;
+use App\Security\Domain\Data\Exception\UserAlreadyHasAdministratorRole;
+use App\Security\Domain\Data\Exception\UserDoesNotHaveAdministratorRole;
 
 class User
 {

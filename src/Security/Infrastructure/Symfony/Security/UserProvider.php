@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security\Infrastructure\Symfony\Security;
 
-use App\Security\Domain\Data\Model\Exception\UserNotFound;
+use App\Security\Domain\Data\Exception\UserNotFound;
 use App\Security\Domain\Data\Repository\Users;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;

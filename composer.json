@@ -47,6 +47,7 @@
         "friendsofphp/php-cs-fixer": "^2.16",
         "hautelook/alice-bundle": "2.x-dev",
         "jangregor/phpstan-prophecy": "^0.8",
+        "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12",
         "phpstan/phpstan-doctrine": "^0.12",
@@ -76,8 +77,7 @@
     "autoload-dev": {
         "psr-4": {
             "Fixtures\\": "fixtures",
-            "Tests\\App\\Security\\": "tests/Security",
-            "Tests\\App\\Shared\\": "tests/Shared"
+            "Tests\\App\\": "tests"
         }
     },
     "replace": {

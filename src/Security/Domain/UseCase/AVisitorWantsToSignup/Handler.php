@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security\Domain\UseCase\AVisitorWantsToSignup;
 
+use App\Security\Domain\Data\Exception\UnableToAddUser;
 use App\Security\Domain\Data\Model\User;
 use App\Security\Domain\Data\Repository\Users;
 use App\Security\Domain\Email\Emails\UserRegisterEmail;
@@ -38,16 +39,22 @@ class Handler implements UseCaseHandler
         $user = $this->users->findByEmail($input->getUserEmail());
 
         if (null === $user) {
-            $user = User::register(
-                $this->idGenerator->getNew(),
-                $input->getUserFirstname(),
-                $input->getUserLastname(),
-                $input->getUserEmail(),
-                $this->clock->now(),
-                $this->randomGenerator->generate(64)
-            );
+            try {
+                $user = User::register(
+                    $this->idGenerator->getNew(),
+                    $input->getUserFirstname(),
+                    $input->getUserLastname(),
+                    $input->getUserEmail(),
+                    $this->clock->now(),
+                    $this->randomGenerator->generate(64)
+                );
 
-            $this->users->add($user);
+                $this->users->add($user);
+            } catch (UnableToAddUser $e) {
+                $this->notifier->notify(Notifier::TYPE_ERROR, 'Registration failed, please contact support !');
+
+                return;
+            }
         }
 
         if (!$user->isActivated()) {

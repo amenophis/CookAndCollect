@@ -15,12 +15,10 @@
   </php>
   <testsuites>
     <testsuite name="unit">
-      <directory>tests/Security/Unit</directory>
-      <directory>tests/Shared/Unit</directory>
+      <directory>tests/*/Unit</directory>
     </testsuite>
     <testsuite name="func">
-      <directory>tests/Security/Func</directory>
-      <directory>tests/Shared/Func</directory>
+      <directory>tests/*/Func</directory>
     </testsuite>
   </testsuites>
   <listeners>

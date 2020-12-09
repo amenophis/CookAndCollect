@@ -29,11 +29,16 @@ RUN \
     apk add --no-cache postgresql-dev && \
     docker-php-ext-install -j$(nproc) pdo_pgsql && \
     apk add --no-cache icu-dev && \
-	docker-php-ext-install intl && \
+	docker-php-ext-install -j$(nproc) intl && \
     apk add --no-cache oniguruma-dev && \
-    docker-php-ext-install mbstring && \
+    docker-php-ext-install -j$(nproc) mbstring && \
     docker-php-ext-enable mbstring && \
+    apk add --no-cache $PHPIZE_DEPS && \
+    pecl install xdebug && \
+    docker-php-ext-enable xdebug && \
     rm -rf /tmp/*
+
+RUN echo "xdebug.mode=coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 USER docker:docker
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Security\Domain\UseCase\RevokeUserAdministratorRole;
 
-use App\Security\Domain\Data\Model\Exception\UserAlreadyHasAdministratorRole;
-use App\Security\Domain\Data\Model\Exception\UserNotFound;
+use App\Security\Domain\Data\Exception\UserAlreadyHasAdministratorRole;
+use App\Security\Domain\Data\Exception\UserNotFound;
 use App\Security\Domain\Data\Repository\Users;
 use App\Shared\Domain\UseCase\UseCaseHandler;
 
