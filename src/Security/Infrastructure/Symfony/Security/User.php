@@ -14,13 +14,15 @@ class User implements UserInterface, EquatableInterface
     private string $email;
     private ?string $password;
     private bool $admin;
+    private string $fullName;
 
-    public function __construct(string $id, string $email, string $password, bool $isAdmin)
+    public function __construct(string $id, string $email, string $password, bool $isAdmin, string $fullName)
     {
         $this->id       = $id;
         $this->email    = $email;
         $this->password = $password;
         $this->admin    = $isAdmin;
+        $this->fullName = $fullName;
     }
 
     public function isEqualTo(UserInterface $user)
@@ -34,7 +36,8 @@ class User implements UserInterface, EquatableInterface
             $user->getId(),
             $user->getEmail(),
             $user->getPassword(),
-            $user->isAdmin()
+            $user->isAdmin(),
+            $user->getFullname()
         );
     }
 
@@ -84,5 +87,10 @@ class User implements UserInterface, EquatableInterface
      */
     public function eraseCredentials(): void
     {
+    }
+
+    public function getFullName(): string
+    {
+        return $this->fullName;
     }
 }

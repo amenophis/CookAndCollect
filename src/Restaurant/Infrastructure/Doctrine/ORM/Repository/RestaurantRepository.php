@@ -33,4 +33,24 @@ class RestaurantRepository extends ServiceEntityRepository implements Restaurant
             throw new UnableToAddRestaurant($e);
         }
     }
+
+    public function findByOwner(string $ownerId): ?Restaurant
+    {
+        return $this->_em->getRepository(Restaurant::class)->findOneBy([
+            'ownerId' => $ownerId,
+        ]);
+    }
+
+    public function updateName(string $restaurantId, string $name): void
+    {
+        $this->_em->getRepository(Restaurant::class)->createQueryBuilder('r')
+            ->update()
+            ->set('r.name', ':name')
+            ->setParameter('name', $name)
+            ->where('r.id = :id')
+            ->setParameter('id', $restaurantId)
+            ->getQuery()
+            ->execute()
+        ;
+    }
 }

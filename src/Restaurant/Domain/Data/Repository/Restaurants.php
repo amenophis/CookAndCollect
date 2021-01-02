@@ -13,4 +13,8 @@ interface Restaurants
      * @throws UnableToAddRestaurant
      */
     public function add(Restaurant $restaurant): void;
+
+    public function findByOwner(string $ownerId): ?Restaurant;
+
+    public function updateName(string $restaurantId, string $name): void;
 }

@@ -21,7 +21,8 @@ abstract class BaseTestCase extends WebTestCase
             FixturesConstants::USER_ACTIVATED_ID,
             FixturesConstants::USER_ACTIVATED_EMAIL,
             FixturesConstants::USER_ACTIVATED_PASSWORD,
-            false
+            false,
+            FixturesConstants::USER_ACTIVATED_FIRSTNAME.' '.FixturesConstants::USER_ACTIVATED_LASTNAME
         );
     }
 }
