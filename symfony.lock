@@ -11,6 +11,18 @@
     "composer/xdebug-handler": {
         "version": "1.4.4"
     },
+    "dama/doctrine-test-bundle": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "56eaa387b5e48ebcc7c95a893b47dfa1ad51449c"
+        },
+        "files": [
+            "config/packages/test/dama_doctrine_test_bundle.yaml"
+        ]
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -729,6 +741,9 @@
     },
     "twig/extra-bundle": {
         "version": "3.x-dev"
+    },
+    "twig/intl-extra": {
+        "version": "v3.1.1"
     },
     "twig/twig": {
         "version": "3.x-dev"

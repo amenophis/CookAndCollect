@@ -103,7 +103,7 @@ class UseCaseMaker extends AbstractMaker
 
         $generator->generateClass(
             $this->getHandlerClassNameDetails($contextName, $useCaseName)->getFullName(),
-            $this->projectDir.'/templates/maker/UseCase/Handler.maker.php',
+            $this->projectDir.'/templates/maker/UseCase/Handler.tpl.php',
             [
                 'has_output' => $useCaseHasOutput,
             ]
@@ -111,13 +111,13 @@ class UseCaseMaker extends AbstractMaker
 
         $generator->generateClass(
             $this->getInputClassNameDetails($contextName, $useCaseName)->getFullName(),
-            $this->projectDir.'/templates/maker/UseCase/Input.maker.php'
+            $this->projectDir.'/templates/maker/UseCase/Input.tpl.php'
         );
 
         if ($useCaseHasOutput) {
             $generator->generateClass(
                 $this->getOutputClassNameDetails($contextName, $useCaseName)->getFullName(),
-                $this->projectDir.'/templates/maker/UseCase/Output.maker.php'
+                $this->projectDir.'/templates/maker/UseCase/Output.tpl.php'
             );
         }
 

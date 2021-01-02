@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Restaurant\Application\AUserWantsToCreateARestaurant;
+namespace App\Restaurant\Application\AUserWantsToUpdateHisRestaurantName;
 
 use App\Restaurant\Domain\Data\Repository\Restaurants;
-use App\Restaurant\Domain\UseCase\AUserWantsToCreateARestaurant;
+use App\Restaurant\Domain\UseCase\AUserWantsToUpdateHisRestaurantName;
 use App\Security\Infrastructure\Symfony\Security\User;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,21 +23,23 @@ class Controller extends AbstractController
     }
 
     /**
-     * @Route("/restaurant/register", methods={"GET", "POST"}, name="app_restarurant_register")
-     * @IsGranted("ROLE_USER")
+     * @Route("/restaurant/update-name", methods={"GET", "POST"}, name="app_restaurant_update_name")
      */
-    public function __invoke(Request $request, Restaurants $restaurants, User $user): Response
+    public function __invoke(Request $request, User $user, Restaurants $restaurants): Response
     {
         $restaurant = $restaurants->findByOwner($user->getId());
-        if (null !== $restaurant) {
+        if (null === $restaurant) {
             return $this->redirectToRoute('app_restaurant_details');
         }
 
-        $form = $this->createForm(Form::class, $formData = new FormDto());
+        $formData                 = new FormDto();
+        $formData->restaurantName = $restaurant->getName();
+
+        $form = $this->createForm(Form::class, $formData);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $input = new AUserWantsToCreateARestaurant\Input($user->getId(), $formData->restaurantName);
+            $input = new AUserWantsToUpdateHisRestaurantName\Input($restaurant->getId(), $formData->restaurantName);
             $this->useCaseBus->dispatch($input);
 
             return $this->redirectToRoute('app_restaurant_details');
